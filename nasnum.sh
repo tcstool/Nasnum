@@ -32,25 +32,26 @@
 OLD_IFS=$IFS
 IFS=$'\n'
 
+clear
 #Clean up from previous runs
-rm *.txt
+rm *.txt > /dev/null 2>&1
 
 if [ $# -lt 3 ]; then
-	echo "Nasnum-The Network Attached Storage Enumerator"
-	echo "Usage: nasnum.sh <ip or DNS name of storage> <HTML output file path> <options>"
-	echo "Options:"
-	echo "-s Grab SMB info"
-	echo "-n Grab NFS info"
-	echo "-b Check SNMP for connection data (Tested on EMC and Buffalo storage; Your mileage will vary)"
-	echo "-f Check for anonymous FTP and enumerate dirs/files"
-	echo "-q Be quiet and don't mount shares"
-	echo "-c Clean up when finished"
-	exit
+	echo -e  "\n\n-----------------Nasnum-The Network Attached Storage Enumerator------------------------\n\n"
+    echo "Usage: nasnum.sh <ip or DNS name of storage> <HTML output file path> <options>"
+    echo "Options:"
+    echo "-s Grab SMB info"
+    echo "-n Grab NFS info"
+    echo "-b Check SNMP for connection data (Tested on EMC and Buffalo storage; Your mileage will vary)"
+    echo "-f Check for anonymous FTP and enumerate dirs/files"
+    echo "-q Be quiet and don't mount shares"
+    echo -e "-c Clean up when finished\n\n\n"
+    exit
 fi
 
 storage=$1
 output=$2
-option_ary=($3 $4 $5 $6 $7)
+option_ary=($3 $4 $5 $6 $7 $8)
 snmp_ary=("public" "private" "snmp")
 quiet_mode=0
 nfs_data_done=0
@@ -283,10 +284,11 @@ if [ ${snmp_data_done} == 1 ]; then
 fi
 
 if [ ${clean_up} == 1 ]; then
-	rm *.txt
+	rm *.txt > /dev/null 2>&1
 fi
 
 printf "	</body>\n" >> ${output}
 printf "</html>" >> ${output}
 IFS=OLD_IFS
+echo "Done"
 #The end
