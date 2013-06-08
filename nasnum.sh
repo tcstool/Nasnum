@@ -52,7 +52,7 @@ fi
 storage=$1
 output=$2
 option_ary=($3 $4 $5 $6 $7 $8)
-snmp_ary=("public" "private" "snmp")
+snmp_ary=("public" "private" "readme" "snmp")
 quiet_mode=0
 nfs_data_done=0
 smb_data_done=0
@@ -144,15 +144,15 @@ fi
 
 #Finish building the table of contents
 if [ ${nfs_data_done} == 1 ] && [ ${quiet_mode} != 1 ]; then
-	printf "		<li><a href=${output}#nfsdirs>Anonmyous Directory Listings-NFS</a></li>\n" >> ${output}	
+	printf "		<li><a href=${output}#nfsdirs>Anonymous Directory Listings-NFS</a></li>\n" >> ${output}	
 fi
 
 if [ ${smb_data_done} == 1 ] && [ ${quiet_mode} != 1 ]; then
-	printf "		<li><a href=${output}#smbdirs>Anonmyous Directory Listings-SMB</a></li>\n" >> ${output}
+	printf "		<li><a href=${output}#smbdirs>Anonymous Directory Listings-SMB</a></li>\n" >> ${output}
 fi
 
 if [ ${ftp_data_done} == 1 ]; then
-	printf "		<li><a href=${output}#ftpdirs>Anonmyous Directory Listings-FTP</a></li>\n" >> ${output}
+	printf "		<li><a href=${output}#ftpdirs>Anonymous Directory Listings-FTP</a></li>\n" >> ${output}
 fi
 
 printf "		</ul><br>\n" >> ${output}
@@ -230,9 +230,9 @@ if [ ${nfs_data_done} == 1 ]; then
 			done
 		
 		printf "		</p><br>\n" >> ${output}
+		sleep 5
 		umount ./nfstemp
 		rm ./nfsdirlist.txt
-		sleep 2
 		done
 	fi
 	
